@@ -1,0 +1,126 @@
+<html>
+<head>
+  <title>Social Media Icons</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous">
+  <style>
+    .social-icons {
+      display: flex;
+      justify-content: center;
+    }
+    .social-icons a {
+      margin: 24px;
+      font-size: 24px;
+    }
+    .social-icons a .fab.fa-facebook {
+      color: blue;
+    }
+    .social-icons a .fab.fa-whatsapp {
+      color: green;
+    }
+    .social-icons a .fab.fa-twitter {
+      color: #1DA1F2;
+    }
+    .social-icons a .fab.fa-linkedin {
+      color: #2867B2;
+    }
+    .social-icons a .far.fa-clipboard {
+      color: #000;
+    }
+
+    /* Add responsive styles for mobile */
+    @media only screen and (max-width: 600px) {
+      .social-icons {
+        flex-direction: row;
+      }
+      .social-icons a {
+        margin: 12px;
+      }
+    }
+
+    /* Add tooltip-like style for "Link copied!" message */
+    .tooltip {
+      position: fixed;
+      bottom: 90%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #646c64;
+      color: #fff;
+      padding: 10px;
+      border-radius: 4px;
+      z-index: 9999;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s, opacity 0.5s ease;
+    }
+    .tooltip.show {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="social-icons">
+    <a href="#" target="_blank" class="icon brands alt" onclick="shareOnFacebook()">
+      <i class="fab fa-facebook"></i>
+    </a>
+    <a href="#" target="_blank" class="icon brands alt" onclick="shareOnWhatsapp()">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="#" target="_blank" class="icon brands alt" onclick="shareOnTwitter()">
+      <i class="fab fa-twitter"></i>
+    </a>
+    <a href="#" target="_blank" class="icon brands alt" onclick="shareOnLinkedIn()">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="#" class="icon alt" onclick="shareLink()">
+      <i class="far fa-clipboard"></i>
+    </a>
+  </div>
+  <div class="tooltip" id="tooltip">Link copied!</div>
+
+  <script>
+	 // Replace this URL with your desired link
+    var currentUrl = 'https://example.com';
+
+    var PreFillText = 'Share this link:\n\n';
+
+    function shareOnFacebook() {
+      var facebookUrl = "https://www.facebook.com/sharer.php?u=" + encodeURIComponent(currentUrl);
+      window.open(facebookUrl, "_blank");
+    }
+
+    function shareOnWhatsapp() {
+      var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(PreFillText) + encodeURIComponent(currentUrl);
+      window.open(whatsappUrl, "_blank");
+    }
+
+    function shareOnTwitter() {
+      var twitterUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(PreFillText) + "&url=" + encodeURIComponent(currentUrl);
+      window.open(twitterUrl, "_blank");
+    }
+
+    function shareOnLinkedIn() {
+      var linkedInUrl = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(currentUrl);
+      window.open(linkedInUrl, "_blank");
+    }
+
+    function shareLink() {
+      var input = document.createElement('input');
+      input.setAttribute('value', currentUrl);
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+
+      var tooltip = document.getElementById('tooltip');
+      tooltip.classList.add('show');
+
+      setTimeout(function() {
+        tooltip.classList.remove('show');
+      }, 2000);
+
+      return false;
+    }
+  </script>
+</body>
+</html>
